@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rampur Bazar | Official App Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #09090b;
+            --surface: #18181b;
+            --border: #27272a;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --primary: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --secondary: #8b5cf6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --premium: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.12) 0px, transparent 50%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 0 4rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .tagline {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Apps Grid */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0 5rem;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+
+        .app-card {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px var(--primary-glow);
+        }
+
+        .app-card.admin-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-box {
+            width: 72px;
+            height: 72px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .app-card h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .app-card p {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            flex-grow: 1;
+            font-size: 1.05rem;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            gap: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .btn-user {
+            background: var(--text-main);
+            color: var(--bg-color);
+        }
+        
+        .btn-user:hover {
+            background: #e4e4e7;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn-admin {
+            background: rgba(255,255,255,0.03);
+            color: var(--text-main);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-admin:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+
+        /* Pros and Cons Section */
+        .analysis-section {
+            padding: 4rem 0 8rem;
+            animation: slideUp 1s ease-out 0.4s backwards;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .analysis-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .analysis-card.pros {
+            border-top: 4px solid var(--success);
+        }
+
+        .analysis-card.cons {
+            border-top: 4px solid var(--danger);
+        }
+
+        .analysis-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .analysis-list {
+            list-style: none;
+        }
+
+        .analysis-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .analysis-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-list li strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .icon-check { 
+            color: var(--success); 
+            font-size: 1.25rem;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            flex-shrink: 0;
+        }
+        
+        .icon-cross { 
+            color: var(--danger); 
+            font-size: 1.25rem;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            flex-shrink: 0;
+        }
+
+        /* Premium Section */
+        .premium-banner {
+            margin: 0 0 6rem;
+            background: linear-gradient(145deg, rgba(30, 25, 10, 0.8) 0%, rgba(20, 15, 5, 0.9) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 24px;
+            padding: 4rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 1s ease-out 0.6s backwards;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .premium-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--premium), transparent);
+        }
+
+        .premium-banner h3 {
+            color: var(--premium);
+            font-size: 2.25rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .premium-banner p {
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.15rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.75rem; }
+            .analysis-grid { grid-template-columns: 1fr; }
+            .app-card { padding: 2rem 1.5rem; }
+            .premium-banner { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="tagline">Ecosystem Portal</div>
+            <h1>The Next Generation<br>of Rampur Bazar</h1>
+            <p>Download our official applications to experience seamless shopping, powerful management, and a highly optimized digital ecosystem.</p>
+        </section>
+
+        <!-- Downloads Grid -->
+        <section class="apps-grid">
+            <!-- User App Card -->
+            <div class="app-card">
+                <div class="icon-box">🛍️</div>
+                <h3>Rampur Bazar User</h3>
+                <p>Designed for an impeccable shopping experience. Browse thousands of products, checkout seamlessly, and manage your orders from a beautiful native interface.</p>
+                <a href="users.apk" download="users.apk" class="download-btn btn-user">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download User APK
+                </a>
+            </div>
+
+            <!-- Admin App Card -->
+            <div class="app-card admin-card">
+                <div class="icon-box">📊</div>
+                <h3>Rampur Bazar Admin</h3>
+                <p>A powerhouse for merchants and administrators. Track real-time inventory, analyze sales metrics, and securely manage your entire operation on the go.</p>
+                <a href="admin.apk" download="admin.apk" class="download-btn btn-admin">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    Download Admin APK
+                </a>
+            </div>
+        </section>
+
+        <!-- Pros and Cons Section -->
+        <section class="analysis-section">
+            <div class="section-header">
+                <h2>Platform Analysis</h2>
+                <p>A transparent look at the capabilities and technical requirements of our applications.</p>
+            </div>
+            
+            <div class="analysis-grid">
+                <!-- Advantages -->
+                <div class="analysis-card pros">
+                    <h3>
+                        <span class="icon-check">✓</span>
+                        Platform Advantages
+                    </h3>
+                    <ul class="analysis-list">
+                        <li>
+                            <div class="icon-check">✓</div>
+                            <div>
+                                <strong>Real-time Synchronization</strong>
+                                Your cart, orders, and inventory status are updated across all devices within milliseconds.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-check">✓</div>
+                            <div>
+                                <strong>Enterprise-Grade Security</strong>
+                                State-of-the-art encryption secures user credentials and payment information.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-check">✓</div>
+                            <div>
+                                <strong>Intuitive User Interface</strong>
+                                Built with modern UX principles to ensure zero learning curve for users and staff alike.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-check">✓</div>
+                            <div>
+                                <strong>Offline Resilience</strong>
+                                Core features remain accessible and data is queued intelligently when connectivity drops.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Disadvantages -->
+                <div class="analysis-card cons">
+                    <h3>
+                        <span class="icon-cross">✕</span>
+                        Technical Limitations
+                    </h3>
+                    <ul class="analysis-list">
+                        <li>
+                            <div class="icon-cross">✕</div>
+                            <div>
+                                <strong>Storage Requirements</strong>
+                                The app requires local device storage to cache high-resolution product images for smooth browsing.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-cross">✕</div>
+                            <div>
+                                <strong>Internet Dependency</strong>
+                                While basic offline mode exists, full functionality like checkout and live inventory requires a stable connection.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-cross">✕</div>
+                            <div>
+                                <strong>Background Battery Usage</strong>
+                                Real-time push notifications and background syncing can slightly impact device battery life.
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-cross">✕</div>
+                            <div>
+                                <strong>OS Compatibility</strong>
+                                Requires Android 8.0 (Oreo) or newer for optimal performance and security feature support.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Premium Banner -->
+        <div class="premium-banner">
+            <h3>👑 Unlock The Premium Tier</h3>
+            <p>Upgrade your Rampur Bazar experience. Premium members get exclusive access to advanced AI-driven sales analytics, priority 24/7 customer support, custom store themes, and a completely ad-free browsing environment. Elevate your business or shopping journey by upgrading directly within the app.</p>
+        </div>
+    </div>
+</body>
+</html>
